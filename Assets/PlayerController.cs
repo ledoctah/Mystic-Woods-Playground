@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour
   Animator animator;
   List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
 
+  bool canMove = true;
+  public SwordAttackController swordAttackController;
+
   void Start()
   {
     rb = GetComponent<Rigidbody2D>();
@@ -22,23 +25,29 @@ public class PlayerController : MonoBehaviour
   }
 
   private void FixedUpdate() {
+    if(!canMove) {
+      return;
+    }
+
     if(movementInput != Vector2.zero)
     {
-      bool canMove = TryMove(movementInput);
+      bool isMoveSuccess = TryMove(movementInput);
+
+      bool isPlayerLookingLeft = movementInput.x < 0f;
       
-      spriteRenderer.flipX = movementInput.x < 0f;
+      spriteRenderer.flipX = isPlayerLookingLeft;
 
-      if(!canMove)
+      if(!isMoveSuccess)
       {
-        canMove = TryMove(new Vector2(movementInput.x, 0f));
+        isMoveSuccess = TryMove(new Vector2(movementInput.x, 0f));
       }
 
-      if(!canMove)
+      if(!isMoveSuccess)
       {
-        canMove = TryMove(new Vector2(0f, movementInput.y));
+        isMoveSuccess = TryMove(new Vector2(0f, movementInput.y));
       }
 
-      animator.SetBool("isMoving", canMove);
+      animator.SetBool("isMoving", isMoveSuccess);
 
       return;
     }
@@ -68,5 +77,31 @@ public class PlayerController : MonoBehaviour
   void OnMove(InputValue movementValue)
   {
     movementInput = movementValue.Get<Vector2>();
+  }
+
+  void OnFire()
+  {
+    animator.SetTrigger("swordAttack");
+  }
+
+  public void SwordAttack()
+  {
+    LockMovement();
+
+    if(spriteRenderer.flipX) {
+      swordAttackController.AttackLeft();
+    } else {
+      swordAttackController.AttackRight();
+    }
+  }
+
+  public void LockMovement()
+  {
+    canMove = false;
+  }
+
+  public void UnlockMovement()
+  {
+    canMove = true;
   }
 }
