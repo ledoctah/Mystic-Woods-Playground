@@ -9,40 +9,49 @@ public class PlayerController : MonoBehaviour
   public float collisionOffset = 0.05f;
   public ContactFilter2D movementFilter;
   Vector2 movementInput;
+  SpriteRenderer spriteRenderer;
   Rigidbody2D rb;
+  Animator animator;
   List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
 
   void Start()
   {
     rb = GetComponent<Rigidbody2D>();
+    animator = GetComponent<Animator>();
+    spriteRenderer = GetComponent<SpriteRenderer>();
   }
 
   private void FixedUpdate() {
-    if(movementInput == Vector2.zero)
+    if(movementInput != Vector2.zero)
     {
+      bool canMove = TryMove(movementInput);
+      
+      spriteRenderer.flipX = movementInput.x < 0f;
+
+      if(!canMove)
+      {
+        canMove = TryMove(new Vector2(movementInput.x, 0f));
+      }
+
+      if(!canMove)
+      {
+        canMove = TryMove(new Vector2(0f, movementInput.y));
+      }
+
+      animator.SetBool("isMoving", canMove);
+
       return;
     }
-
-    bool canMoveInBothDirections = TryMove(movementInput);
-
-    if(canMoveInBothDirections) {
-      return;
-    }
-
-    bool canMoveHorizontally = TryMove(new Vector2(movementInput.x, 0f));
-
-    if(canMoveHorizontally) {
-      return;
-    }
-
-    bool canMoveVertically = TryMove(new Vector2(0f, movementInput.y));
-
-    if(canMoveVertically) {
-      return;
-    }
+    
+    animator.SetBool("isMoving", false);
   }
 
   private bool TryMove(Vector2 direction) {
+    if(direction == Vector2.zero )
+    {
+      return false;
+    }
+
     int count = rb.Cast(direction, movementFilter, castCollisions, speed * Time.fixedDeltaTime + collisionOffset);
 
     // if user is colliding with something the player will not be allowed to move
