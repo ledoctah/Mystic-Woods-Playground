@@ -95,6 +95,12 @@ public class PlayerController : MonoBehaviour
     }
   }
 
+  public void EndSwordAttack()
+  {
+    UnlockMovement();
+    swordAttackController.StopAttack();
+  }
+
   public void LockMovement()
   {
     canMove = false;
