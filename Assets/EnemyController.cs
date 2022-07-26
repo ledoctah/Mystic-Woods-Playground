@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+  Animator animator;
+
   public float health = 1;
   public float Health
   {
@@ -23,9 +25,18 @@ public class EnemyController : MonoBehaviour
     }
   }
 
+  public void Start()
+  {
+    animator = GetComponent<Animator>();
+  }
+
 
   public void Defeat()
   {
+    animator.SetTrigger("Defeated");
+  }
+
+  public void RemoveEnemy() {
     Destroy(gameObject);
   }
 }
