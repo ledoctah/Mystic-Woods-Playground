@@ -33,9 +33,11 @@ public class PlayerController : MonoBehaviour
     {
       bool isMoveSuccess = TryMove(movementInput);
 
-      bool isPlayerLookingLeft = movementInput.x < 0f;
-      
-      spriteRenderer.flipX = isPlayerLookingLeft;
+      if(movementInput.x != 0) {
+        bool isPlayerLookingLeft = movementInput.x < 0f;
+        
+        spriteRenderer.flipX = isPlayerLookingLeft;
+      }
 
       if(!isMoveSuccess)
       {
