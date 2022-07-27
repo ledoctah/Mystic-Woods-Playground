@@ -38,7 +38,7 @@ After cloning it, you can open your Unity Hub and just hit the play button.
 
 ## 📝 License
 
-This projects is under the [MIT license](./LICENSE). Feel free to download and edit as you want.
+This project is under the [MIT license](./LICENSE). Feel free to download and edit as you want.
 
 Made with 💖 by [Matheus Ferreira](http://github.com/ledoctah)
 
