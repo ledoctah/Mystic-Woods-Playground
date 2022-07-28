@@ -16,6 +16,8 @@ public class EnemyController : MonoBehaviour
       if(health <= 0)
       {
         Defeat();
+      } else {
+        TakeDamage();
       }
     }
 
@@ -34,6 +36,11 @@ public class EnemyController : MonoBehaviour
   public void Defeat()
   {
     animator.SetTrigger("Defeated");
+  }
+
+  public void TakeDamage()
+  {
+    animator.SetTrigger("Damaged");
   }
 
   public void RemoveEnemy() {
