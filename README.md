@@ -42,4 +42,4 @@ This project is under the [MIT license](./LICENSE). Feel free to download and ed
 
 Made with 💖 by [Matheus Ferreira](http://github.com/ledoctah)
 
-[![Linkedin Badge](https://img.shields.io/badge/-Matheus%20Ferreira-6633cc?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/ferreira-matheus/)](https://www.linkedin.com/in/ferreira-matheus/)
+[![Linkedin Badge](https://img.shields.io/badge/-Matheus%20Ferreira-6633cc?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/o-matheus-ferreira/)](https://www.linkedin.com/in/o-matheus-ferreira/)
